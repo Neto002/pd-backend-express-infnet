@@ -11,9 +11,9 @@ const { logRequest } = require("./src/middlewares/log.middleware");
 const { limiter } = require("./src/middlewares/limiter.middleware");
 
 app.use(express.json());
+app.use(cors());
 app.use(logRequest); // middleware global para registrar todas as requisições
 app.use(limiter); // middleware global para registrar todas as requisições
-app.use(cors());
 
 // Public routes
 app.use("/auth", authRoutes);

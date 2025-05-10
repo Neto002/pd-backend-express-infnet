@@ -48,8 +48,41 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const getCategories = async (req, res) => {
+  try {
+    const categories = await productService.getAllCategories();
+    res.status(200).json(categories);
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+
+    res.status(500).json({ message: "Error fetching categories" });
+  }
+};
+
+const getProductsByCategory = async (req, res) => {
+  const { category } = req.params;
+
+  try {
+    const products = await productService.getAllProductsByCategory(category);
+
+    if (!products || products.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No products found in this category" });
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error fetching products by category:", error);
+
+    res.status(500).json({ message: "Error fetching products by category" });
+  }
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   updateProduct,
+  getCategories,
+  getProductsByCategory,
 };

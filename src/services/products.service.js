@@ -2,6 +2,8 @@ const {
   getProducts,
   getProductById,
   saveProducts,
+  getCategories,
+  getProductsByCategory,
 } = require("../models/products.model");
 
 const getAll = async () => {
@@ -33,8 +35,18 @@ const updateProduct = async (id, data) => {
   return products[index];
 };
 
+const getAllCategories = async () => {
+  return await getCategories();
+};
+
+const getAllProductsByCategory = async (category) => {
+  return await getProductsByCategory(category);
+};
+
 module.exports = {
   getAll,
   getById,
   updateProduct,
+  getAllCategories,
+  getAllProductsByCategory,
 };
