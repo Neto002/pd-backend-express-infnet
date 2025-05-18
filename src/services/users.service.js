@@ -9,11 +9,9 @@ const getAllUsers = async () => {
   return users;
 };
 
-const saveUser = async ({ username, password, email }) => {
+const saveUser = async ({ username, password }) => {
   const users = await usersModel.getUsers();
-  const user = users.some(
-    (user) => user.username === username || user.email === email
-  );
+  const user = users.some((user) => user.username === username);
 
   if (user) {
     return null;
@@ -25,7 +23,6 @@ const saveUser = async ({ username, password, email }) => {
     id: users.length + 1,
     username,
     password: hashedPassword,
-    email,
   };
 
   users.push(newUser);

@@ -1,20 +1,7 @@
 [
   {
     "id": 1,
-    "username": "Alice",
-    "email": "alice@gmail.com",
-    "password": "password123"
-  },
-  {
-    "id": 2,
-    "username": "Bob",
-    "email": "bob@gmail.com",
-    "password": "password456"
-  },
-  {
-    "id": 3,
-    "username": "charlie",
-    "password": "$2b$10$KLb0fFOmlXz3K6rVmgjrQ.0AFepM8QhJg./TyunXvQCv6PaDTJPM.",
-    "email": "charlie@gmail.com"
+    "username": "admin",
+    "password": "$2b$10$.da3wX.7EdUI/nO4iSkdP.M.NDmDsU1fdPTn41KEoiMd7ezMIPflC"
   }
 ]

@@ -18,8 +18,10 @@ app.use(limiter); // middleware global para registrar todas as requisições
 // Public routes
 app.use("/auth", authRoutes);
 
+app.use("/uploads", express.static("uploads")); // Serve static files from the uploads directory
+
 // Private routes
-app.use("/users", verifyToken, userRoutes);
+app.use("/users", userRoutes);
 app.use("/products", verifyToken, productRoutes); // middleware pontual para proteger um recurso específico
 
 const port = process.env.PORT;

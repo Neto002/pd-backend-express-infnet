@@ -11,6 +11,20 @@ const getAllProducts = async (req, res) => {
   }
 };
 
+const createProduct = async (req, res) => {
+  try {
+    const imagePath = req.file ? req.file.filename : null;
+
+    const product = await productService.createProduct(req.body, imagePath);
+
+    res.status(201).json(product);
+  } catch (error) {
+    console.error("Error creating product:", error);
+
+    res.status(500).json({ message: "Error creating product" });
+  }
+};
+
 const getProductById = async (req, res) => {
   const { id } = req.params;
 
@@ -34,7 +48,14 @@ const updateProduct = async (req, res) => {
   const productData = req.body;
 
   try {
-    const updatedProduct = await productService.updateProduct(id, productData);
+    const imagePath = req.file ? req.file.filename : null;
+    console.log("Image path:", imagePath);
+
+    const updatedProduct = await productService.updateProduct(
+      id,
+      productData,
+      imagePath
+    );
 
     if (!updatedProduct) {
       return res.status(404).json({ message: "Product not found" });
@@ -45,6 +66,25 @@ const updateProduct = async (req, res) => {
     console.error("Error updating product:", error);
 
     res.status(500).json({ message: "Error updating product" });
+  }
+};
+
+const updateProductStock = async (req, res) => {
+  const { id } = req.params;
+  const { stock } = req.body;
+
+  try {
+    const updatedProduct = await productService.updateProductStock(id, stock);
+
+    if (!updatedProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json(updatedProduct);
+  } catch (error) {
+    console.error("Error updating product stock:", error);
+
+    res.status(500).json({ message: "Error updating product stock" });
   }
 };
 
@@ -79,10 +119,31 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleted = await productService.removeProduct(id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(204).send();
+  } catch (error) {
+    console.error("Error deleting product:", error);
+
+    res.status(500).json({ message: "Error deleting product" });
+  }
+};
+
 module.exports = {
   getAllProducts,
+  createProduct,
   getProductById,
   updateProduct,
+  updateProductStock,
   getCategories,
   getProductsByCategory,
+  deleteProduct,
 };

@@ -17,11 +17,11 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
   const { username, email, password } = req.body;
   try {
-    if (!username || !email || !password) {
+    if (!username || !password) {
       return res.status(400).json({ error: "All fields are required" });
     }
 
-    const user = await usersService.saveUser({ username, email, password });
+    const user = await usersService.saveUser({ username, password });
 
     if (!user) {
       return res.status(409).json({ error: "User already exists" });
